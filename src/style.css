@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+.logo {
+    height: 3rem;
+    margin-right: 1rem;
+}
+
+.account {
+    height: 3rem;
+}
+
+.nav {
+   background-color: #03fcbe;
+}
+
+
+.container {
+    margin-top: 0;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding: 1rem;
+    min-height: calc(100vh - 69px);
+}
