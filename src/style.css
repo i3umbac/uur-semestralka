@@ -28,5 +28,24 @@ a {
     margin-left: 5vw;
     margin-right: 5vw;
     padding: 1rem;
-    min-height: calc(100vh - 69px);
+}
+
+@media (max-width: 899px) {
+    .logoMini {
+        display: block; /* Zobrazí logo na mobilech */
+    }
+
+    .logoMaxi {
+        display: none; /* Zobrazí logo na mobilech */
+    }
+}
+
+@media (min-width: 900px) {
+    .logoMini {
+        display: none; /* Skryje logo na větších obrazovkách */
+    }
+
+    .logoMaxi {
+        display: block; /* Zobrazí logo na mobilech */
+    }
 }
