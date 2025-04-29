@@ -11,8 +11,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
@@ -87,7 +85,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function MiniDrawer() {
+export default function MiniDrawer( { setAdminPage, items } ) {
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -98,16 +96,6 @@ export default function MiniDrawer() {
         setOpen(false);
     };
 
-    const items = [
-        { text: "Users", icon: PersonOutlineIcon },
-        { text: "Branch verification", icon: VerifiedUserIcon },
-        { text: "Branches", icon: Inventory2Icon },
-        { text: "Warehouses", icon: WarehouseIcon },
-        { text: "API", icon: SettingsEthernetIcon },
-        { text: "Company", icon: CorporateFareIcon },
-        { text: "Billing", icon: ReceiptLongIcon },
-
-    ];
 
     return (
         <Box sx={{ display: 'flex',  }}>
@@ -123,9 +111,10 @@ export default function MiniDrawer() {
                 </DrawerHeader>
                 <List>
 
-                    {items.map(({ text, icon: Icon }, index) => (
+                    {items.map(({ text, file, icon: Icon }, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
+                                onClick={() => setAdminPage(file)}
                                 sx={[
                                     {
                                         minHeight: 48,

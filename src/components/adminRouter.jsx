@@ -1,9 +1,31 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useMemo } from 'react';
 
 // Dynamické importování komponent
 
-function AppRouter({ adminPage }) {
-    const Component = lazy(() => import(`../content/${adminPage.toLowerCase()}`) ); // Dynamické importování komponent
+
+const validPages = [
+    "users",
+    "verification",
+    "branch",
+    "warehouse",
+    "api",
+    "company",
+    "billing",
+];
+
+function AdminRouter({ adminPage }) {
+
+    // Validace adminPage
+    const validatedPage = useMemo(() => {
+        if (!validPages.includes(adminPage)) {
+            return "branch";  // Nastavení na "branches", pokud není validní
+        }
+        return adminPage;
+    }, [adminPage]);
+
+    const Component = useMemo(() => {
+        return lazy(() => import(`../content/${validatedPage}`));
+    }, [validatedPage]);
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
@@ -12,4 +34,5 @@ function AppRouter({ adminPage }) {
     );
 }
 
-export default AppRouter;
+
+export default AdminRouter;

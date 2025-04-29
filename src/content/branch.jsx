@@ -137,10 +137,10 @@ const rows = [
     createData('Hudební středisko HLAS', 'Kostelní 53, 36432 Stanovice', 5000, '5%', 'Yes', 'Karel Rachot'),
 ];
 
-export default function Franchise() {
+export default function Branch() {
     return (
         <>
-        <h1>Franchises</h1>
+        <h1>Branches</h1>
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead sx={{ borderBottom: '2px solid black' }}>
