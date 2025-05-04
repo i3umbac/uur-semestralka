@@ -30,6 +30,124 @@ a {
     padding: 1rem;
 }
 
+
+
+.invoice-wrapper {
+    display: flex;
+    flex-direction: column; /* zobrazení jako sloupec */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* celá výška obrazovky */
+    padding: 20px; /* mezera okolo faktury */
+    box-sizing: border-box;
+}
+
+.print-invoice{
+    width: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#invoice{
+    border: 1px solid black;
+    background-color: white;
+    /*rozměry A4*/
+    height: 1140px;
+    width: 806px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+#invoice-logo {
+    margin-left: 20px;
+    height: 80px;
+}
+
+.invoice-right {
+    float: right;
+    text-align: right;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoice-table th, td {
+    text-align: left;
+    min-width: 100px;
+}
+
+.invoice-table th {
+    border-bottom: 1px solid black;
+}
+
+.invoice-divider{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(197, 196, 196);
+}
+
+#invoice-stamp{
+    position: relative;
+    height: 50px;
+    rotate: 4deg;
+    top: -60px;
+    left: 160px;
+}
+
+#invoice-signature{
+    position: relative;
+    left: -150px;
+    top: 10px;
+    height: 70px;
+}
+
+.invoice-too-small{
+    display: none;
+}
+
+
+
+@media print AND (orientation: portrait){
+    @page {
+        size: auto;
+        margin: 0;
+    }
+
+    .horizontalNav{
+        display: none !important;
+    }
+
+    .verticalNav{
+        display: none !important;
+    }
+
+    #invoice{
+        width: 90vw;
+        border: none;
+        font-size: 16px;
+    }
+
+    #invoice-logo{
+        height: 100px;
+        background-color: #02d6a1;
+    }
+
+    .invoice-divider{
+        width: 100%;
+        height: 0;
+        border: 1px solid rgb(197, 196, 196);
+    }
+
+
+
+
+    .print-invoice{
+        display: none;
+    }
+}
+
 @media (max-width: 899px) {
     .logoMini {
         display: block; /* Zobrazí logo na mobilech */

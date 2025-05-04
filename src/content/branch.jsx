@@ -15,29 +15,68 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
+import TextField from '@mui/material/TextField';
 
-function createData(name, address, capacity, occupancy, open, owner) {
-    return {
-        name,
-        address,
-        capacity,
-        occupancy,
-        open,
-        owner,
-        history: [
-            {
-                date: '2020-01-05',
-                customerId: '11091700',
-                amount: 3,
-            },
-            {
-                date: '2020-01-02',
-                customerId: 'Anonymous',
-                amount: 1,
-            },
-        ],
-    };
-}
+
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
+import Button from '@mui/material/Button';
+
+
+const rows = [
+    {
+        id: 0,
+        name: 'Restaruace u Čápa',
+        street: 'Sídliště',
+        houseNo: '4',
+        city: 'Toužim',
+        postalCode: '36401',
+        capacity: 200,
+        occupancy: 17.2,
+        tax: '0%',
+        open: 1,
+        owner: 'Jakub Verner',
+        coords: '50°3\'34.192\\"N,12°59\'4.462\\"E',
+        opens: 7,
+        closes: 14,
+        sunday: 1
+    },
+    {
+        id: 1,
+        name: 'Nákupní středisko Petry Smutné',
+        street: 'Vepřová',
+        houseNo: '32',
+        city: 'Huzová',
+        postalCode: '79351',
+        capacity: 2000,
+        occupancy: 26.4,
+        tax: '0%',
+        open: 0,
+        owner: 'Petra Smutná',
+        coords: '49°49\'17.041\\"N,17°17\'53.068\\"E',
+        opens: 6,
+        closes: 21,
+        sunday: 0
+    },
+    {
+        id: 2,
+        name: 'Hudební středisko HLAS',
+        street: 'Kostelní',
+        houseNo: '56',
+        city: 'Stanovice',
+        postalCode: '36432',
+        capacity: 5000,
+        occupancy: 2.7,
+        tax: '5%',
+        open: 1,
+        owner: 'Karel Rachot',
+        coords: '50°9\'57.066\\"N,12°52\'24.165\\"E',
+        opens: 9,
+        closes: 17,
+        sunday: 1
+    }
+];
 
 function Row(props) {
     const { row } = props;
@@ -50,9 +89,9 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.name}
                 </TableCell>
-                <TableCell >{row.address}</TableCell>
+                <TableCell >{row.street} {row.houseNo}, {row.postalCode} {row.city}</TableCell>
                 <TableCell >{row.capacity}</TableCell>
-                <TableCell >{row.occupancy}</TableCell>
+                <TableCell >{row.occupancy}%</TableCell>
                 <TableCell >{row.open}</TableCell>
                 <TableCell >{row.owner}</TableCell>
                 <TableCell>
@@ -75,36 +114,60 @@ function Row(props) {
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{ margin: 1 }}>
-                            <Typography variant="h6" gutterBottom component="div">
-                                History
-                            </Typography>
-                            <Table size="small" aria-label="purchases">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Date</TableCell>
-                                        <TableCell>Customer</TableCell>
-                                        <TableCell align="right">Amount</TableCell>
-                                        <TableCell align="right">Total price ($)</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow key={historyRow.date}>
-                                            <TableCell component="th" scope="row">
-                                                {historyRow.date}
-                                            </TableCell>
-                                            <TableCell>{historyRow.customerId}</TableCell>
-                                            <TableCell align="right">{historyRow.amount}</TableCell>
-                                            <TableCell align="right">
-                                                {Math.round(historyRow.amount * row.price * 100) / 100}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, margin: 1 }}>
+                            <Box
+                                component="img"
+                                src="../assets/map.png"
+                                alt="Tady by měla být mapa"
+                                sx={{
+                                    width: 350,
+                                    height: 350,
+                                    objectFit: 'cover',
+                                    borderRadius: 1,
+                                    border: '1px solid #ccc'
+                                }}
+                            />
+
+                            <Box>
+                                <Box sx={{ margin: 1 }}>
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="Name" variant="standard" defaultValue={row.name} />
+                                    <TextField sx={{ mr: 5, width: '30ch' }}id="standard-basic" label="Street" variant="standard" defaultValue={row.street} />
+                                </Box>
+                                <Box sx={{ margin: 1 }}>
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="Owner" variant="standard" defaultValue={row.owner} />
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="House No." variant="standard" defaultValue={row.houseNo} />
+                                </Box>
+                                <Box sx={{ margin: 1 }}>
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="Capacity" variant="standard" defaultValue={row.capacity} />
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="City" variant="standard" defaultValue={row.city} />
+                                </Box>
+                                <Box sx={{ margin: 1 }}>
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="Coordinates" variant="standard" defaultValue={row.coords}/>
+                                    <TextField sx={{ mr: 5, width: '30ch' }} id="standard-basic" label="Postal code" variant="standard" defaultValue={row.postalCode} />
+                                </Box>
+                                <Box sx={{ margin: 1 }}>
+                                    <TextField sx={{ mr: 4, width: '13ch' }} id="standard-basic" label="Opens" variant="standard" defaultValue={row.opens}/>
+                                    <TextField sx={{ mr: 3, width: '13ch' }} id="standard-basic" label="Closes" variant="standard" defaultValue={row.closes}/>
+
+                                    <FormControlLabel
+                                        value="open"
+                                        control={<Switch color="primary" checked={row.open === 1} />}
+                                        label="Open"
+                                        labelPlacement="top"
+                                    />
+
+                                    <FormControlLabel
+                                        value="sunday"
+                                        control={<Switch color="primary" checked={row.sunday === 0} />}
+                                        label="Sundays"
+                                        labelPlacement="top"
+                                    />
+
+                                </Box>
+                                <Button sx={{ height: '36px', padding: 2, width: '20ch', ml: 1 }} variant="outlined" size="small">Save changes</Button>
+                            </Box>
                         </Box>
                     </Collapse>
                 </TableCell>
@@ -131,11 +194,7 @@ Row.propTypes = {
     }).isRequired,
 };
 
-const rows = [
-    createData('Restaruace u Čápa', 'Sídliště 4, 36401 Toužim', 200, '0%' , 'Yes', 'Jakub Verner'),
-    createData('Nákupní středisko Petry Smutné', 'Vepřová 32, 79351 Huzová', 2000, '0%', 'No (until 07. 05. 2024 )' , 'Petra Smutná'),
-    createData('Hudební středisko HLAS', 'Kostelní 53, 36432 Stanovice', 5000, '5%', 'Yes', 'Karel Rachot'),
-];
+
 
 export default function Branch() {
     return (

@@ -6,7 +6,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
@@ -38,14 +37,14 @@ function ResponsiveAppBar( {pages, settings}) {
     };
 
     return (
-        <AppBar position="static"
+        <AppBar className="horizontalNav" position="static"
                 sx={{
             backgroundColor: '#03fcbe',
             color: 'black',
         }}
         >
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar disableGutters >
                     <Link to="/Home">
                         <img src={logo} alt="Logo" className="logo logoMaxi" />
                     </Link>

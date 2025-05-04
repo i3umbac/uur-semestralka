@@ -98,7 +98,7 @@ export default function MiniDrawer( { setAdminPage, items } ) {
 
 
     return (
-        <Box sx={{ display: 'flex',  }}>
+        <Box className="verticalNav" sx={{ display: 'flex',  }}>
             <CssBaseline sx={{backgroundColor: '#03fcbe', color: 'black',}} />
             <Drawer variant="permanent" open={open}>
                 <DrawerHeader sx={{height: 68,}}>
