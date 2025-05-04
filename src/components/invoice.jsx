@@ -4,9 +4,11 @@ import print from "../assets/printer.svg"
 import signature from "../assets/signature.png"
 import stamp from "../assets/stamp.png"
 
-export default function Invoice({customer, issueDate, dueDate, transactions, total, paymentMethod, title}) {
-    const priceNoTax = Math.ceil(total / 121 * 100);
-    const tax = total - priceNoTax;
+
+// renders a printable A4 writeup based on props
+//      customerAdress is not required, takes a dict with keys: houseNo, street, postalCode, city
+
+export default function Invoice({issueDate, dueDate, title, s, m, l, customer, customerAdress, paymentMethod}) {
 
     return (
         <>
@@ -53,17 +55,27 @@ export default function Invoice({customer, issueDate, dueDate, transactions, tot
                         </tr>
                         </thead>
                         <tbody>
-                        {transactions.map((item, index) => (
-                            item.quantity > 0 && (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.quantity}</td>
-                                    <td>{item.price} CZK</td>
-                                    <td>{item.total} CZK</td>
-                                </tr>
-                            )
-                        ))}
+                            <tr>
+                                <td>1</td>
+                                <td>700 credits</td>
+                                <td>{s}</td>
+                                <td>700 CZK</td>
+                                <td>{ s * 700 } CZK</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>3500 credits</td>
+                                <td>{m}</td>
+                                <td>3430 CZK</td>
+                                <td>{ m * 3430 } CZK</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>7000 credits</td>
+                                <td>{l}</td>
+                                <td>6860 CZK</td>
+                                <td>{ l * 6860 } CZK</td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -74,9 +86,9 @@ export default function Invoice({customer, issueDate, dueDate, transactions, tot
                     <br />
 
                     <p className="invoice-right">
-                        Price without VAT: {priceNoTax} CZK<br />
-                        VAT 21%: {tax} CZK<br />
-                        Total Price: {total} CZK
+                        Price without VAT: { ((s * 700 + m * 3430 + l * 6860) / 121 * 100).toFixed(1)} CZK<br />
+                        VAT 21%: { ((s * 700 + m * 3430 + l * 6860) / 121 * 21).toFixed(1)} CZK<br />
+                        Total Price: { (s * 700 + m * 3430 + l * 6860) } CZK
                     </p>
 
                     <br /><br /><br /><br />
