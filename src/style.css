@@ -48,14 +48,14 @@ a {
     margin-bottom: 5px;
 }
 
-#invoice{
-    border: 1px solid black;
+#invoice {
     background-color: white;
-    /*rozměry A4*/
     height: 1140px;
     width: 806px;
     margin-bottom: 20px;
     padding: 20px;
+
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
 }
 
 #invoice-logo {
@@ -126,6 +126,9 @@ a {
         width: 90vw;
         border: none;
         font-size: 16px;
+
+        height: 900px;
+        box-shadow: none;
     }
 
     #invoice-logo{
