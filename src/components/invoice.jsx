@@ -7,8 +7,9 @@ import stamp from "../assets/stamp.png"
 
 // renders a printable A4 writeup based on props
 //      customerAdress is not required, takes a dict with keys: houseNo, street, postalCode, city
+//      checks if input is an object and not empty, ignores otherwise
 
-export default function Invoice({issueDate, dueDate, title, s, m, l, customer, customerAdress, paymentMethod}) {
+export default function Invoice({issueDate, dueDate, title, s, m, l, customer, customerAddress, paymentMethod}) {
 
     return (
         <>
@@ -36,7 +37,21 @@ export default function Invoice({issueDate, dueDate, title, s, m, l, customer, c
                     </p>
                     <p>
                         Customer:<br />
-                        <b>{customer}</b><br /><br /><br /><br />
+                        <b>{customer}</b><br />
+                        {customerAddress &&
+                        typeof customerAddress === "object" &&
+                        !Array.isArray(customerAddress) &&
+                        Object.keys(customerAddress).length > 0 ? (
+                            <>
+                                {customerAddress.street} {customerAddress.houseNo}<br />
+                                {customerAddress.postalCode} {customerAddress.city}<br />
+                                <br />
+                            </>
+                        ) : (
+                            <>
+                                <br /><br /><br />
+                            </>
+                        )}
                     </p>
                     <br /><br />
                     <h3 className="center">{title}</h3>

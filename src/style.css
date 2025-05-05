@@ -38,7 +38,6 @@ a {
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* celá výška obrazovky */
-    padding: 20px; /* mezera okolo faktury */
     box-sizing: border-box;
 }
 
@@ -146,16 +145,25 @@ a {
         display: none;
     }
 
+    .invoice-ui {
+        display:none !important;
+    }
+
+    .invoice-border {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
     #invoice-stamp{
         position: absolute;
-        left: 300px;
+        left: 190px;
         top: 750px;
     }
 
     #invoice-signature{
         position: absolute;
-        left: 320px;
-        top: 730px;
+        left: 220px;
+        top: 740px;
     }
 }
 
