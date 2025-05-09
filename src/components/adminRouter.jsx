@@ -2,16 +2,7 @@ import React, { Suspense, lazy, useMemo } from 'react';
 
 // Dynamické importování komponent
 
-
-const validPages = [
-    "users",
-    "verification",
-    "branch",
-    "warehouse",
-    "api",
-    "company",
-    "billing",
-];
+import { validPages } from "../components/mockData.jsx"
 
 function AdminRouter({ adminPage }) {
 
