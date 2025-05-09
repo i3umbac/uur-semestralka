@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-// Komponenta sloužící pro routing celé stránky
-// Podle předaného pole stránek vytvoří router, který automaticky importuje stránky ze složky "conents" (stejnojmenné)
+// main router component for the whole page
+// creates routes based on a passed prop "pages"
 // args:
-//      pages - pole stránek
+//      pages - array of valid pages
 
 function AppRouter( { pages }) {
     return (

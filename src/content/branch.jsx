@@ -260,11 +260,33 @@ function Row(props) {
                                  }} />
                             <Box>
                                 <Box sx={{ m: 1 }}>
-                                    <TextField sx={{ mr: 5, width: '30ch' }} label="Name" variant="standard" value={formData.name} onChange={handleChange('name')} />
+                                    <TextField
+                                        sx={{ mr: 5, width: '30ch' }}
+                                        label="Name"
+                                        variant="standard"
+                                        value={formData.name}
+                                        onChange={handleChange('name')}
+                                        inputProps={{ maxLength: 40 }}
+                                        helperText={
+                                            formData.name.length >= 40 ? 'Max name length: 40' : ''
+                                        }
+                                        FormHelperTextProps={{
+                                            sx: {
+                                                color: 'error.main',
+                                                minHeight: '1.5em', // Prevent layout shift when helperText appears/disappears
+                                            },
+                                        }}
+                                    />
                                     <TextField sx={{ mr: 5, width: '30ch' }} label="Street" variant="standard" value={formData.street} onChange={handleChange('street')} />
                                 </Box>
                                 <Box sx={{ m: 1 }}>
-                                    <TextField sx={{ mr: 5, width: '30ch' }} label="Owner" variant="standard" value={formData.owner} onChange={handleChange('owner')} />
+                                    <TextField
+                                        sx={{ mr: 5, width: '30ch' }}
+                                        label="Owner"
+                                        variant="standard"
+                                        value={formData.owner}
+                                        disabled
+                                    />
                                     <TextField sx={{ mr: 5, width: '30ch' }} label="House No." variant="standard" value={formData.houseNo} onChange={handleChange('houseNo')} />
                                 </Box>
                                 <Box sx={{ m: 1 }}>
@@ -272,7 +294,7 @@ function Row(props) {
                                     <TextField sx={{ mr: 5, width: '30ch' }} label="City" variant="standard" value={formData.city} onChange={handleChange('city')} />
                                 </Box>
                                 <Box sx={{ m: 1 }}>
-                                    <TextField sx={{ mr: 5, width: '30ch' }} label="Coordinates" variant="standard" value={formData.coords} onChange={handleChange('coords')} />
+                                    <TextField sx={{ mr: 5, width: '30ch' }} label="Coordinates" variant="standard" value={formData.coords} disabled />
                                     <TextField sx={{ mr: 5, width: '30ch' }} label="Postal Code" variant="standard" value={formData.postalCode} onChange={handleChange('postalCode')} />
                                 </Box>
                                 <Box sx={{ m: 1 }}>
@@ -324,27 +346,6 @@ function Row(props) {
         </>
     );
 }
-
-Row.propTypes = {
-    row: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        street: PropTypes.string.isRequired,
-        houseNo: PropTypes.string.isRequired,
-        city: PropTypes.string.isRequired,
-        postalCode: PropTypes.string.isRequired,
-        capacity: PropTypes.number.isRequired,
-        occupancy: PropTypes.number.isRequired,
-        open: PropTypes.number.isRequired,
-        owner: PropTypes.string.isRequired,
-        coords: PropTypes.string.isRequired,
-        opens: PropTypes.number.isRequired,
-        closes: PropTypes.number.isRequired,
-        sunday: PropTypes.number.isRequired,
-    }).isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
 
 export default function Branch() {
     const [rowsState, setRowsState] = React.useState(rows);

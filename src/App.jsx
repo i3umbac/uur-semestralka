@@ -1,9 +1,9 @@
 import AppRouter from "./components/appRouter.jsx"
 import ResponsiveAppBar from "./components/nav.jsx"
+import { pages, settings } from "./components/mockData.jsx"
 
-// params to display inside the navbar
-const pages = ['Home', 'Send', 'Company', 'Admin'];
-const settings = ['Credits', 'Records', 'Account', 'Logout'];
+// the "index" page
+// displays the main navbar and calls main router
 
 function App() {
     return (
@@ -12,8 +12,6 @@ function App() {
             <div className="container">
                 < AppRouter pages= { pages } />
             </div>
-
-
         </>
     )
 }
