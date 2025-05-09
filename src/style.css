@@ -107,6 +107,54 @@ a {
 }
 
 
+@media (max-width: 899px) {
+    .logoMini {
+        display: block; /* Zobrazí logo na mobilech */
+    }
+
+    .logoMaxi {
+        display: none; /* Zobrazí logo na mobilech */
+    }
+
+    .container {
+        margin-left: 3vw;
+        margin-right: 0;
+    }
+
+}
+
+@media (max-width: 980px) {
+    #invoice {
+        height: 1140px;
+        width: 606px;
+        margin-bottom: 20px;
+        padding: 20px;
+
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    #invoice-stamp{
+        top: -70px;
+        left: 80px;
+    }
+
+    #invoice-signature{
+        left: 200px;
+        top: -60px;
+        height: 70px;
+    }
+}
+
+@media (min-width: 900px) {
+    .logoMini {
+        display: none; /* Skryje logo na větších obrazovkách */
+    }
+
+    .logoMaxi {
+        display: block; /* Zobrazí logo na mobilech */
+    }
+}
+
 @media print AND (orientation: portrait){
     @page {
         size: auto;
@@ -167,22 +215,14 @@ a {
     }
 }
 
-@media (max-width: 899px) {
-    .logoMini {
-        display: block; /* Zobrazí logo na mobilech */
+/* znemožnění tisku na šířku */
+@media print AND (orientation: landscape){
+    @page {
+        size: auto;
+        margin: 0;
     }
 
-    .logoMaxi {
-        display: none; /* Zobrazí logo na mobilech */
-    }
-}
-
-@media (min-width: 900px) {
-    .logoMini {
-        display: none; /* Skryje logo na větších obrazovkách */
-    }
-
-    .logoMaxi {
-        display: block; /* Zobrazí logo na mobilech */
+    body {
+        display: none;
     }
 }

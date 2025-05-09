@@ -75,6 +75,7 @@ function ResponsiveAppBar( {pages, settings}) {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                             color="inherit"
+                            sx={{ ml: '100px' }}
                         >
                             <MenuIcon />
                         </IconButton>
@@ -95,7 +96,7 @@ function ResponsiveAppBar( {pages, settings}) {
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={`/${page.toLowerCase()}`}>
                                     <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
                                 </MenuItem>
                             ))}
