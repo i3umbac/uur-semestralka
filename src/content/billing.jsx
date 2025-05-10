@@ -10,14 +10,18 @@ import { billingData } from "../components/mockData.jsx";
 const testData = billingData;
 
 export default function Billing() {
-    const [expanded, setExpanded] = useState(null); // index nebo null
+    // state to track the currently expanded accordion panel
+    const [expanded, setExpanded] = useState(null); // index of the expanded panel or null
 
+    // function to handle changing the expanded panel
     const handleChange = (panelIndex) => (event, isExpanded) => {
+        // update expanded panel state or set it to null if the panel is collapsed
         setExpanded(isExpanded ? panelIndex : null);
     };
 
     return (
         <div>
+            {/* disabled Accordion as a static header */}
             <Accordion disabled className={"invoice-ui"}>
                 <AccordionSummary aria-controls="panel-disabled-content" id="panel-disabled-header">
                     <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
@@ -27,24 +31,27 @@ export default function Billing() {
                 </AccordionSummary>
             </Accordion>
 
+            {/* map through testData to render each accordion panel */}
             {testData.map((data, index) => (
                 <Accordion
                     className={"invoice-border"}
                     key={index}
-                    expanded={expanded === index}
-                    onChange={handleChange(index)}
+                    expanded={expanded === index}  // check if current panel is expanded
+                    onChange={handleChange(index)}  // handle expansion on change
                 >
-                    <AccordionSummary  className={"invoice-ui"}
+                    <AccordionSummary
+                        className={"invoice-ui"}
                         expandIcon={<ArrowDropDownIcon />}
                         aria-controls={`panel${index}-content`}
                         id={`panel${index}-header`}
                     >
                         <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                            <Typography component="span">{data.issueDate}</Typography>
-                            <Typography component="span">{data.customerName}</Typography>
+                            <Typography component="span">{data.issueDate}</Typography>  {/* display issue date */}
+                            <Typography component="span">{data.customerName}</Typography>  {/* display customer name */}
                         </div>
                     </AccordionSummary>
-                    <AccordionDetails >
+                    <AccordionDetails>
+                        {/* passing data to Invoice component */}
                         <Invoice
                             customer={data.customerName}
                             issueDate={data.issueDate}

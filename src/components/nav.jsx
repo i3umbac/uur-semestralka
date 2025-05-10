@@ -15,7 +15,7 @@ import logo from "../assets/logo.svg"
 import person from "../assets/person.svg"
 
 
-function ResponsiveAppBar( {pages, settings}) {
+export default function ResponsiveAppBar( {pages, settings}) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -173,4 +173,3 @@ function ResponsiveAppBar( {pages, settings}) {
         </AppBar>
     );
 }
-export default ResponsiveAppBar;

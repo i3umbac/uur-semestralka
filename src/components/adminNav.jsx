@@ -12,70 +12,62 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import WarehouseIcon from '@mui/icons-material/Warehouse';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import CorporateFareIcon from '@mui/icons-material/CorporateFare';
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-
-
 const drawerWidth = 240;
 
+// function to define the opened state styles of the drawer
 const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    width: drawerWidth, // set width when drawer is open
+    transition: theme.transitions.create('width', { // add transition for opening
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
     }),
     overflowX: 'hidden',
     backgroundColor: '#03fcbe',
     color: 'black',
-
 });
 
+// function to define the closed state styles of the drawer
 const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create('width', { // add transition for closing
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(7)} + 1px)`, // set width when drawer is closed
+    [theme.breakpoints.up('sm')]: { // adjust width on larger screens
         width: `calc(${theme.spacing(8)} + 1px)`,
     },
     backgroundColor: '#03fcbe',
     color: 'black',
 });
 
+// styled component for drawer header
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end', // align content to the right
     border: 0,
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
+    padding: theme.spacing(0, 1), // add padding to the header
+    ...theme.mixins.toolbar, // necessary for content to be below app bar
 }));
 
+// custom styled Drawer component with conditional styling based on the drawer's open state
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme }) => ({
         width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-
+        flexShrink: 0, // prevent the drawer from shrinking
+        whiteSpace: 'nowrap', // prevent text from wrapping
         boxSizing: 'border-box',
         variants: [
             {
-                props: ({ open }) => open,
+                props: ({ open }) => open, // when drawer is open
                 style: {
                     ...openedMixin(theme),
                     '& .MuiDrawer-paper': openedMixin(theme),
                 },
             },
             {
-                props: ({ open }) => !open,
+                props: ({ open }) => !open, // when drawer is closed
                 style: {
                     ...closedMixin(theme),
                     '& .MuiDrawer-paper': closedMixin(theme),
@@ -85,17 +77,20 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function MiniDrawer( { setAdminPage, items } ) {
+// main MiniDrawer component
+export default function MiniDrawer({ setAdminPage, items }) {
+    // state to track if drawer is open or closed
     const [open, setOpen] = React.useState(false);
 
+    // function to open the drawer
     const handleDrawerOpen = () => {
         setOpen(true);
     };
 
+    // function to close the drawer
     const handleDrawerClose = () => {
         setOpen(false);
     };
-
 
     return (
         <Box className="verticalNav" sx={{ display: 'flex',  }}>
@@ -110,11 +105,11 @@ export default function MiniDrawer( { setAdminPage, items } ) {
                     </IconButton>
                 </DrawerHeader>
                 <List>
-
+                    {/* map through items to create list of links */}
                     {items.map(({ text, file, icon: Icon }) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
-                                onClick={() => setAdminPage(file)}
+                                onClick={() => setAdminPage(file)} // set admin page when item is clicked
                                 sx={[
                                     {
                                         minHeight: 48,
@@ -123,10 +118,10 @@ export default function MiniDrawer( { setAdminPage, items } ) {
                                     },
                                     open
                                         ? {
-                                            justifyContent: 'initial',
+                                            justifyContent: 'initial', // align items to the left when drawer is open
                                         }
                                         : {
-                                            justifyContent: 'center',
+                                            justifyContent: 'center', // center items when drawer is closed
                                         },
                                 ]}
                             >
@@ -139,27 +134,27 @@ export default function MiniDrawer( { setAdminPage, items } ) {
                                         },
                                         open
                                             ? {
-                                                mr: 3,
+                                                mr: 3, // add margin when drawer is open
                                             }
                                             : {
-                                                mr: 'auto',
+                                                mr: 'auto', // auto margin when drawer is closed
                                             },
                                     ]}
                                 >
-                                    < Icon />
+                                    < Icon /> {/* icon for the item */}
                                 </ListItemIcon>
                                 <ListItemText
-                                    primary={text}
+                                    primary={text} // display text for the item
                                     sx={[
                                         {
                                             color: 'black',
                                         },
                                         open
                                             ? {
-                                                opacity: 1,
+                                                opacity: 1, // fully visible when drawer is open
                                             }
                                             : {
-                                                opacity: 0,
+                                                opacity: 0, // invisible when drawer is closed
                                             },
                                     ]}
                                 />

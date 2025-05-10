@@ -26,10 +26,17 @@ const rows = branches.filter(branch => branch.warehouse === 0);
 
 function Row(props) {
     const { row, onSave, onDelete } = props;
+
+    // state for controlling row collapse
     const [open, setOpen] = React.useState(false);
+
+    // state for holding form data, initialized from the row props
     const [formData, setFormData] = React.useState({ ...row });
+
+    // state for delete confirmation dialog visibility
     const [dialogOpen, setDialogOpen] = React.useState(false);
 
+    // handles input changes and updates form data accordingly
     const handleChange = (field) => (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData(prev => ({
@@ -38,15 +45,18 @@ function Row(props) {
         }));
     };
 
+    // saves the edited form data and closes the collapse section
     const handleSave = () => {
         onSave(formData);
         setOpen(false);
     };
 
+    // opens the delete confirmation dialog
     const handleDeleteConfirmation = () => {
         setDialogOpen(true);
     };
 
+    // closes the dialog and deletes the row if confirmed
     const handleDialogClose = (confirmed) => {
         if (confirmed) {
             onDelete(row.id);
@@ -54,6 +64,7 @@ function Row(props) {
         setDialogOpen(false);
     };
 
+    // validates the form input before allowing save
     const isFormValid = () => {
         const {
             name,
@@ -90,6 +101,7 @@ function Row(props) {
 
     return (
         <>
+            {/* main row displaying basic branch info */}
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell component="th" scope="row">{row.name}</TableCell>
                 <TableCell sx={{ minWidth: 0, width: 'auto' }}>{row.street} {row.houseNo}, {row.postalCode} {row.city}</TableCell>
@@ -104,10 +116,13 @@ function Row(props) {
                     <IconButton size="small" onClick={handleDeleteConfirmation}><DeleteIcon /></IconButton>
                 </TableCell>
             </TableRow>
+
+            {/* collapsible section with the editable form */}
             <TableRow>
                 <TableCell colSpan={8} style={{ paddingBottom: 0, paddingTop: 0 }}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, margin: 1 }}>
+                            {/* map image placeholder */}
                             <Box
                                 component="img"
                                 src="../assets/map.png"
@@ -120,8 +135,10 @@ function Row(props) {
                                     border: '1px solid #ccc',
                                 }}
                             />
+                            {/* form fields section */}
                             <Box>
                                 <Box sx={{ m: 1 }}>
+                                    {/* name input */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="Name"
@@ -139,6 +156,7 @@ function Row(props) {
                                             },
                                         }}
                                     />
+                                    {/* street input */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="Street"
@@ -158,6 +176,7 @@ function Row(props) {
                                     />
                                 </Box>
 
+                                {/* owner name display (read-only) */}
                                 <Box sx={{ m: 1 }}>
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
@@ -186,6 +205,7 @@ function Row(props) {
                                 </Box>
 
                                 <Box sx={{ m: 1 }}>
+                                    {/* capacity input */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="Capacity"
@@ -205,6 +225,7 @@ function Row(props) {
                                             },
                                         }}
                                     />
+                                    {/* city name input */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="City"
@@ -225,6 +246,7 @@ function Row(props) {
                                 </Box>
 
                                 <Box sx={{ m: 1 }}>
+                                    {/* coordinates display (read-only) */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="Coordinates"
@@ -232,6 +254,7 @@ function Row(props) {
                                         value={formData.coords}
                                         disabled
                                     />
+                                    {/* postal code input */}
                                     <TextField
                                         sx={{ mr: 5, width: '30ch' }}
                                         label="Postal code"
@@ -254,6 +277,7 @@ function Row(props) {
                                 </Box>
 
                                 <Box sx={{ m: 1 }}>
+                                    {/* opening hours input */}
                                     <TextField
                                         sx={{ mr: 4, width: '13ch' }}
                                         label="Opens"
@@ -272,6 +296,7 @@ function Row(props) {
                                             },
                                         }}
                                     />
+                                    {/* closing hours input */}
                                     <TextField
                                         sx={{ mr: 3, width: '13ch' }}
                                         label="Closes"
@@ -290,6 +315,7 @@ function Row(props) {
                                             },
                                         }}
                                     />
+                                    {/* open/closed switch */}
                                     <FormControlLabel
                                         control={
                                             <Switch
@@ -306,6 +332,7 @@ function Row(props) {
                                         label="Open"
                                         labelPlacement="top"
                                     />
+                                    {/* open on sunday switch */}
                                     <FormControlLabel
                                         control={
                                             <Switch
@@ -325,6 +352,7 @@ function Row(props) {
                                 </Box>
 
                                 <Box sx={{ m: 1 }}>
+                                    {/* save button */}
                                     <Button
                                         sx={{ height: '36px', padding: 2, width: '20ch', ml: 1 }}
                                         variant="outlined"
@@ -334,6 +362,8 @@ function Row(props) {
                                     >
                                         Save changes
                                     </Button>
+
+                                    {/* validation warning */}
                                     {
                                         !isFormValid() && (
                                             <Typography variant="body2" sx={{ color: 'error.main', mt: 1 }}>
@@ -375,15 +405,19 @@ function Row(props) {
     );
 }
 
+// displaying and managing a list of branches
 export default function Branch() {
+    // state to hold the current list of warehouse branches
     const [rowsState, setRowsState] = React.useState(rows);
 
+    // function to handle saving updates to a specific row
     const handleSave = (updatedRow) => {
         setRowsState(prev =>
             prev.map(row => (row.id === updatedRow.id ? updatedRow : row))
         );
     };
 
+    // function to handle deleting a specific row by its ID
     const handleDelete = (idToDelete) => {
         setRowsState(prev => prev.filter(row => row.id !== idToDelete));
     };
@@ -391,6 +425,8 @@ export default function Branch() {
     return (
         <>
             <h1>Branches</h1>
+
+            {/* table container wrapping the warehouse table */}
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead >
@@ -400,10 +436,13 @@ export default function Branch() {
                             <TableCell colSpan={2} sx={{ fontWeight: 'bold', minWidth: 0, width: 'auto', whiteSpace: 'nowrap', borderBottom: '2px solid black' }}>Capacity</TableCell>
                             <TableCell sx={{ fontWeight: 'bold', minWidth: 0, width: 'auto', whiteSpace: 'nowrap', borderBottom: '2px solid black' }}>Open</TableCell>
                             <TableCell sx={{ fontWeight: 'bold', minWidth: 0, width: 'auto', whiteSpace: 'nowrap', borderBottom: '2px solid black' }}>Owner</TableCell>
+                            {/* Empty header cells for actions like Edit/Delete */}
                             <TableCell sx={{ fontWeight: 'bold', minWidth: 0, width: 'auto', whiteSpace: 'nowrap', borderBottom: '2px solid black' }} />
                             <TableCell sx={{ fontWeight: 'bold', minWidth: 0, width: 'auto', whiteSpace: 'nowrap', borderBottom: '2px solid black' }} />
                         </TableRow>
                     </TableHead>
+
+                    {/* rendering the body based on imported rows */}
                     <TableBody>
                         {rowsState.map((row) => (
                             <Row

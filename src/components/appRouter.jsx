@@ -1,22 +1,19 @@
 import { Routes, Route } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 
-// main router component for the whole page
-// creates routes based on a passed prop "pages"
-// args:
-//      pages - array of valid pages
-
-function AppRouter( { pages }) {
+export default function AppRouter({ pages }) {
     return (
         <Suspense fallback={<div>Loading...</div>}>
+            {/* define the Routes component to handle page routing */}
             <Routes>
                 {pages.map((page) => {
-                    const Component = lazy(() => import(`../content/${page.toLowerCase()}`) ); // Dynamické importování komponent
+                    // dynamically import the page component based on the page name
+                    const Component = lazy(() => import(`../content/${page.toLowerCase()}`));
                     return (
                         <Route
                             key={page}
-                            path={`/${page.toLowerCase()}`}
-                            element={<Component />}
+                            path={`/${page.toLowerCase()}`} // define the route path
+                            element={<Component />} // render the dynamically imported component
                         />
                     );
                 })}
@@ -24,5 +21,3 @@ function AppRouter( { pages }) {
         </Suspense>
     );
 }
-
-export default AppRouter;

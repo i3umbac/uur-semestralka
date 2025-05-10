@@ -1,29 +1,27 @@
 import React, { Suspense, lazy, useMemo } from 'react';
 
-// Dynamické importování komponent
 
-import { validPages } from "../components/mockData.jsx"
+import { validPages } from "./mockData.jsx"
 
-function AdminRouter({ adminPage }) {
+export default function AdminRouter({ adminPage }) {
 
-    // Validace adminPage
+    // useMemo to validate if the provided adminPage is valid, if not default to "branch"
     const validatedPage = useMemo(() => {
         if (!validPages.includes(adminPage)) {
-            return "branch";  // Nastavení na "branches", pokud není validní
+            return "branch";
         }
         return adminPage;
     }, [adminPage]);
 
+    // useMemo to lazy-import the component based on the validated page
     const Component = useMemo(() => {
         return lazy(() => import(`../content/${validatedPage}`));
     }, [validatedPage]);
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
+            {/* render the lazy-loaded component */}
             <Component />
         </Suspense>
     );
 }
-
-
-export default AdminRouter;
