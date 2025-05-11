@@ -9,7 +9,7 @@ const rows = branches.filter(branch => branch.warehouse === warehouse);
 export default function Company(){
     return (
         <>
-            <h1>Branches</h1>
+            <h1>Warehouses</h1>
             <BranchTable rows = {rows} warehouse={warehouse} />
         </>
     )

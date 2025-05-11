@@ -1,6 +1,5 @@
 import React, { Suspense, lazy, useMemo } from 'react';
 
-
 import { validPages } from "./mockData.jsx"
 
 export default function AdminRouter({ adminPage }) {

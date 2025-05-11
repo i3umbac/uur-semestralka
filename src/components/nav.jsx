@@ -10,39 +10,48 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from "react-router-dom"
-import logo from "../assets/logo.svg"
-import person from "../assets/person.svg"
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.svg";
+import person from "../assets/person.svg";
 
-
-export default function ResponsiveAppBar( {pages, settings}) {
+// main responsive app bar component
+export default function ResponsiveAppBar({ pages, settings }) {
+    // state to track mobile nav menu anchor
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    // state to track user settings menu anchor
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+    // opens the mobile navigation menu
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
+    // opens the user settings menu
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
 
+    // closes the mobile navigation menu
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
 
+    // closes the user settings menu
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
     return (
+        // main app bar container with custom styling
         <AppBar className="horizontalNav" position="static"
                 sx={{
-            backgroundColor: '#03fcbe',
-            color: 'black',
-        }}
+                    backgroundColor: '#03fcbe',
+                    color: 'black',
+                }}
         >
             <Container maxWidth="xl">
-                <Toolbar disableGutters >
+                <Toolbar disableGutters>
+                    {/* logo and title for desktop view */}
                     <Link to="/Home">
                         <img src={logo} alt="Logo" className="logo logoMaxi" />
                     </Link>
@@ -52,7 +61,7 @@ export default function ResponsiveAppBar( {pages, settings}) {
                         component="a"
                         sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: { xs: 'none', md: 'flex' }, // hide on small screens
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -60,11 +69,10 @@ export default function ResponsiveAppBar( {pages, settings}) {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link to="/Home">
-                        SHIPMINT
-                        </Link>
+                        <Link to="/Home">SHIPMINT</Link>
                     </Typography>
 
+                    {/* hamburger menu for small screens */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
@@ -77,34 +85,37 @@ export default function ResponsiveAppBar( {pages, settings}) {
                         >
                             <MenuIcon />
                         </IconButton>
+                        {/* mobile nav menu */}
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                             keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
+                            {/* map over pages to create nav links */}
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu} component={Link} to={`/${page.toLowerCase()}`}>
+                                <MenuItem
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    component={Link}
+                                    to={`/${page.toLowerCase()}`}
+                                >
                                     <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
                     </Box>
 
+                    {/* smaller logo for mobile */}
                     <Link to="/Home">
-                        <img src={ logo } alt="Logo" className="logo logoMini" />
+                        <img src={logo} alt="Logo" className="logo logoMini" />
                     </Link>
 
+                    {/* app title for small screens */}
                     <Typography
                         variant="h5"
                         noWrap
@@ -121,48 +132,43 @@ export default function ResponsiveAppBar( {pages, settings}) {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link to="/Home">
-                            SHIPMINT
-                        </Link>
+                        <Link to="/Home">SHIPMINT</Link>
                     </Typography>
 
+                    {/* full nav buttons for desktop */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Link to={page}>
+                            <Link to={page} key={page}>
                                 <Button
-                                    key={page}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'black', display: 'block', fontWeight: 'bold', }}
+                                    sx={{ my: 2, color: 'black', display: 'block', fontWeight: 'bold' }}
                                 >
                                     {page}
                                 </Button>
                             </Link>
                         ))}
                     </Box>
-                    <Box sx={{ flexGrow: 0,}}>
+
+                    {/* user avatar and settings menu */}
+                    <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <img src={person} alt="account" className="account" />
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px'}}
+                            sx={{ mt: '45px' }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                             keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
+                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
+                            {/* map over settings to create menu items */}
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu} >
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                                 </MenuItem>
                             ))}
