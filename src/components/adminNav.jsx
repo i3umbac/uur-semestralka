@@ -12,6 +12,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
 const drawerWidth = 240;
 
 // function to define the opened state styles of the drawer
@@ -93,76 +95,59 @@ export default function MiniDrawer({ setAdminPage, items }) {
     };
 
     return (
-        <Box className="verticalNav" sx={{ display: 'flex',  }}>
-            <CssBaseline sx={{backgroundColor: '#03fcbe', color: 'black',}} />
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader sx={{height: 68,}}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon sx={{ color: 'black' }}/>
-                    </IconButton>
-                    <IconButton onClick={handleDrawerOpen} sx={[{}, open && { display: 'none' },]}>
-                        <ChevronRightIcon sx={{ color: 'black' }}/>
-                    </IconButton>
-                </DrawerHeader>
-                <List>
-                    {/* map through items to create list of links */}
-                    {items.map(({ text, file, icon: Icon }) => (
-                        <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
-                                onClick={() => setAdminPage(file)} // set admin page when item is clicked
-                                sx={[
-                                    {
-                                        minHeight: 48,
-                                        px: 2.5,
-                                        color: 'black',
-                                    },
-                                    open
-                                        ? {
-                                            justifyContent: 'initial', // align items to the left when drawer is open
-                                        }
-                                        : {
-                                            justifyContent: 'center', // center items when drawer is closed
-                                        },
-                                ]}
-                            >
-                                <ListItemIcon
+        <Box className="verticalNav" sx={{ display: 'flex' }}>
+            <CssBaseline sx={{ backgroundColor: '#03fcbe', color: 'black' }} />
+            <ClickAwayListener onClickAway={() => open && handleDrawerClose()}>
+                <Drawer variant="permanent" open={open}>
+                    <DrawerHeader sx={{ height: 68 }}>
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronLeftIcon sx={{ color: 'black' }} />
+                        </IconButton>
+                        <IconButton onClick={handleDrawerOpen} sx={[{}, open && { display: 'none' }]}>
+                            <ChevronRightIcon sx={{ color: 'black' }} />
+                        </IconButton>
+                    </DrawerHeader>
+                    <List>
+                        {items.map(({ text, file, icon: Icon }) => (
+                            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                                <ListItemButton
+                                    onClick={() => setAdminPage(file)}
                                     sx={[
                                         {
-                                            minWidth: 0,
-                                            justifyContent: 'center',
+                                            minHeight: 48,
+                                            px: 2.5,
                                             color: 'black',
                                         },
                                         open
-                                            ? {
-                                                mr: 3, // add margin when drawer is open
-                                            }
-                                            : {
-                                                mr: 'auto', // auto margin when drawer is closed
-                                            },
+                                            ? { justifyContent: 'initial' }
+                                            : { justifyContent: 'center' },
                                     ]}
                                 >
-                                    < Icon /> {/* icon for the item */}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={text} // display text for the item
-                                    sx={[
-                                        {
-                                            color: 'black',
-                                        },
-                                        open
-                                            ? {
-                                                opacity: 1, // fully visible when drawer is open
-                                            }
-                                            : {
-                                                opacity: 0, // invisible when drawer is closed
+                                    <ListItemIcon
+                                        sx={[
+                                            {
+                                                minWidth: 0,
+                                                justifyContent: 'center',
+                                                color: 'black',
                                             },
-                                    ]}
-                                />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
+                                            open ? { mr: 3 } : { mr: 'auto' },
+                                        ]}
+                                    >
+                                        <Icon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={text}
+                                        sx={[
+                                            { color: 'black' },
+                                            open ? { opacity: 1 } : { opacity: 0 },
+                                        ]}
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+            </ClickAwayListener>
         </Box>
     );
 }

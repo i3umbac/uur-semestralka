@@ -475,79 +475,91 @@ function Row(props) {
                                         />
                                     </Box>
 
-                                    <Box sx={{ m: 1 }}>
-                                        {/* opening hours input */}
-                                        <TextField
-                                            sx={{ mr: 4, width: '13ch' }}
-                                            label="Opens"
-                                            type="number"
-                                            variant="standard"
-                                            value={formData.opens}
-                                            onChange={handleChange('opens')}
-                                            inputProps={{ min: 0, max: 23 }}
-                                            helperText={
-                                                formData.opens > 23 ? 'Value too large for opening hours' : ''
-                                            }
-                                            FormHelperTextProps={{
-                                                sx: {
-                                                    color: 'error.main',
-                                                    minHeight: '1.5em',
-                                                },
-                                            }}
-                                        />
-                                        {/* closing hours input */}
-                                        <TextField
-                                            sx={{ mr: 3, width: '13ch' }}
-                                            label="Closes"
-                                            type="number"
-                                            variant="standard"
-                                            value={formData.closes}
-                                            onChange={handleChange('closes')}
-                                            inputProps={{ min: 0, max: 23 }}
-                                            helperText={
-                                                formData.closes > 23 ? 'Value too large for closing hours' : ''
-                                            }
-                                            FormHelperTextProps={{
-                                                sx: {
-                                                    color: 'error.main',
-                                                    minHeight: '1.5em',
-                                                },
-                                            }}
-                                        />
-                                        {/* open/closed switch */}
-                                        <FormControlLabel
-                                            control={
-                                                <Switch
-                                                    color="primary"
-                                                    checked={formData.open === 1}
-                                                    onChange={() =>
-                                                        setFormData((prev) => ({
-                                                            ...prev,
-                                                            open: prev.open === 1 ? 0 : 1,
-                                                        }))
-                                                    }
-                                                />
-                                            }
-                                            label="Open"
-                                            labelPlacement="top"
-                                        />
-                                        {/* open on sunday switch */}
-                                        <FormControlLabel
-                                            control={
-                                                <Switch
-                                                    color="primary"
-                                                    checked={formData.sunday === 1}
-                                                    onChange={() =>
-                                                        setFormData((prev) => ({
-                                                            ...prev,
-                                                            sunday: prev.sunday === 1 ? 0 : 1,
-                                                        }))
-                                                    }
-                                                />
-                                            }
-                                            label="Sundays"
-                                            labelPlacement="top"
-                                        />
+                                    <Box
+                                        sx={{
+                                            m: 1,
+                                            display: 'flex',
+                                            flexDirection: { xs: 'column', sm: 'row' },
+                                            gap: 4,
+                                            alignItems: { sm: 'flex-end' },
+                                            flexWrap: 'wrap',
+                                        }}
+                                    >
+                                        {/* Block: Opens + Closes */}
+                                        <Box sx={{ display: 'flex', gap: 2 }}>
+                                            <TextField
+                                                sx={{ width: '13ch' }}
+                                                label="Opens"
+                                                type="number"
+                                                variant="standard"
+                                                value={formData.opens}
+                                                onChange={handleChange('opens')}
+                                                inputProps={{ min: 0, max: 23 }}
+                                                helperText={
+                                                    formData.opens > 23 ? 'Value too large for opening hours' : ''
+                                                }
+                                                FormHelperTextProps={{
+                                                    sx: {
+                                                        color: 'error.main',
+                                                        minHeight: '1.5em',
+                                                    },
+                                                }}
+                                            />
+                                            <TextField
+                                                sx={{ width: '13ch' }}
+                                                label="Closes"
+                                                type="number"
+                                                variant="standard"
+                                                value={formData.closes}
+                                                onChange={handleChange('closes')}
+                                                inputProps={{ min: 0, max: 23 }}
+                                                helperText={
+                                                    formData.closes > 23 ? 'Value too large for closing hours' : ''
+                                                }
+                                                FormHelperTextProps={{
+                                                    sx: {
+                                                        color: 'error.main',
+                                                        minHeight: '1.5em',
+                                                    },
+                                                }}
+                                            />
+                                        </Box>
+
+                                        {/* Block: Open + Sundays switches */}
+                                        <Box sx={{ display: 'flex', gap: 2, width: '37ch' }}>
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
+                                                        color="primary"
+                                                        checked={formData.open === 1}
+                                                        onChange={() =>
+                                                            setFormData((prev) => ({
+                                                                ...prev,
+                                                                open: prev.open === 1 ? 0 : 1,
+                                                            }))
+                                                        }
+                                                    />
+                                                }
+                                                label="Open"
+                                                labelPlacement="top"
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                    <Switch
+                                                        color="primary"
+                                                        checked={formData.sunday === 1}
+                                                        onChange={() =>
+                                                            setFormData((prev) => ({
+                                                                ...prev,
+                                                                sunday: prev.sunday === 1 ? 0 : 1,
+                                                            }))
+                                                        }
+                                                    />
+                                                }
+                                                label="Sundays"
+                                                labelPlacement="top"
+                                            />
+                                        </Box>
                                     </Box>
 
                                     <Box sx={{ m: 1 }}>
