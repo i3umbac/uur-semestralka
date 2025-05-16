@@ -45,6 +45,15 @@ a {
     width: 40px;
     margin-top: 5px;
     margin-bottom: 5px;
+    background-color: #03fcbe;
+    padding: 5px;
+    border-radius: 20px;
+}
+
+
+.print-invoice:hover{
+    cursor: pointer;
+    background-color: #02f6b9;
 }
 
 #invoice {

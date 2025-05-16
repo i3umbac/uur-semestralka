@@ -111,7 +111,10 @@ export default function MiniDrawer({ setAdminPage, items }) {
                         {items.map(({ text, file, icon: Icon }) => (
                             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                                 <ListItemButton
-                                    onClick={() => setAdminPage(file)}
+                                    onClick={() => {
+                                        setAdminPage(file);
+                                        handleDrawerClose(); // zavře menu po kliknutí
+                                    }}
                                     sx={[
                                         {
                                             minHeight: 48,
